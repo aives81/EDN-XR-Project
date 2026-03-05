@@ -8,12 +8,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/VR Scene.unity
     guid: 93a590788af8e464bb8ed7e65b78c43f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/bowling.unity
     guid: ecf0d8a0658df2e4e88e4160dee3b758
   - enabled: 0
     path: Assets/Samples/XR Interaction Toolkit/2.6.4/Starter Assets/DemoScene.unity
     guid: 319dafa5c80f29f428dc1e0d03f04177
+  - enabled: 1
+    path: Assets/Scenes/projet.unity
+    guid: e6228713460cd1748bbd1b72b7b14bf4
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: ce18139cfa441194ebbca9060709159d,
       type: 2}
