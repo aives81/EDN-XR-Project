@@ -6,9 +6,11 @@ public class ScanTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (other.CompareTag("Sample"))
         {
-            resultUI.ShowResult();
+            portion.portiontaken = true;
+            portion.ShowResult();
         }
     }
 }
