@@ -11,6 +11,8 @@ public enum SampleType
 
 public class LabGameManager : MonoBehaviour
 {
+    [Header("Effects")]
+    public ParticleSystem virusParticles;
     public TextMeshProUGUI scanText;
 
     public SampleType selectedSample = SampleType.None;
@@ -60,6 +62,11 @@ public class LabGameManager : MonoBehaviour
         if (selectedSample == SampleType.Algue)
         {
             ShowMessage("Analyse terminée.\n\nRésultat : VIRUS DÉTECTÉ.\nL'échantillon d'algue est contaminé.");
+            if (virusParticles != null)
+            {
+                virusParticles.gameObject.SetActive(true);
+                virusParticles.Play();
+            }
         }
         else if (selectedSample == SampleType.Sushi)
         {
