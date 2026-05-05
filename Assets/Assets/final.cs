@@ -13,9 +13,9 @@ public class final : MonoBehaviour
     {
         if(portiontaken) {
             scanText.text =
-            "Molécule détectée : Capsaïcine\n\n" +
-            "Saveur : Épicé\n\n" +
-            "Quel ingrédient a saboté la recette ?\n\n" +
+            "Molécule détectée : Capsaïcine\n" +
+            "Saveur : Épicé\n" +
+            "Quel ingrédient a saboté la recette ?\n" +
             "Piment  |  Citron  |  Sucre  |  Café";
             isResultDisplayed = true;
         }
