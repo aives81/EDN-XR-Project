@@ -6,11 +6,12 @@ public class ScannerTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        FlaskContainer flask = other.GetComponent<FlaskContainer>();
+        FlaskContainer flask = other.GetComponentInParent<FlaskContainer>();
 
-        if (flask != null && flask.hasSample)
-        {
+        if (flask == null) return;
+        if (!flask.hasSample) return;
+
+        if (gameManager != null)
             gameManager.OnFlaskScanned();
-        }
     }
 }

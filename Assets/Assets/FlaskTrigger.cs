@@ -7,13 +7,18 @@ public class FlaskTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        PipetteTool pipette = other.GetComponent<PipetteTool>();
+        PipetteTool pipette = other.GetComponentInParent<PipetteTool>();
 
-        if (pipette != null && pipette.hasSample && !flaskContainer.hasSample)
-        {
-            pipette.SetSample(false);
-            flaskContainer.hasSample = true;
+        if (pipette == null) return;
+        if (!pipette.hasSample) return;
+        if (flaskContainer.hasSample) return;
+
+        flaskContainer.hasSample = true;
+        flaskContainer.currentSample = pipette.currentSample;
+
+        pipette.SetSample(false, SampleType.None);
+
+        if (gameManager != null)
             gameManager.OnSampleTransferredToFlask();
-        }
     }
 }

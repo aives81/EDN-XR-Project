@@ -1,19 +1,26 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public enum SampleType
+{
+    None,
+    Sushi,
+    Algue
+}
 
 public class LabGameManager : MonoBehaviour
 {
-    [Header("UI")]
     public TextMeshProUGUI scanText;
 
-    [Header("Game State")]
+    public SampleType selectedSample = SampleType.None;
     public bool sampleTaken = false;
     public bool sampleInFlask = false;
     public bool resultDisplayed = false;
 
     private void Start()
     {
-        ShowMessage("Prenez la pipette et placez-la dans l'assiette pour prendre un échantillon.");
+        ShowMessage("Choisissez un échantillon : sushi ou algue.\nPrenez la pipette et touchez une assiette.");
     }
 
     public void ShowMessage(string message)
@@ -22,12 +29,18 @@ public class LabGameManager : MonoBehaviour
             scanText.text = message;
     }
 
-    public void OnSampleTaken()
+    public void OnSampleTaken(SampleType type)
     {
         if (sampleTaken) return;
 
+        selectedSample = type;
         sampleTaken = true;
-        ShowMessage("Échantillon prélevé. Placez la pipette dans la fiole.");
+
+        if (type == SampleType.Sushi)
+            ShowMessage("Échantillon de sushi prélevé.\nPlacez la pipette dans la fiole.");
+
+        if (type == SampleType.Algue)
+            ShowMessage("Échantillon d'algue prélevé.\nPlacez la pipette dans la fiole.");
     }
 
     public void OnSampleTransferredToFlask()
@@ -35,7 +48,7 @@ public class LabGameManager : MonoBehaviour
         if (!sampleTaken || sampleInFlask) return;
 
         sampleInFlask = true;
-        ShowMessage("Échantillon transféré dans la fiole. Placez la fiole dans le scanner.");
+        ShowMessage("Échantillon transféré dans la fiole.\nPlacez la fiole dans le scanner.");
     }
 
     public void OnFlaskScanned()
@@ -43,11 +56,19 @@ public class LabGameManager : MonoBehaviour
         if (!sampleInFlask || resultDisplayed) return;
 
         resultDisplayed = true;
-        ShowMessage(
-            "Molécule détectée : Capsaïcine\n\n" +
-            "Saveur : Épicé\n\n" +
-            "Quel ingrédient a saboté la recette ?\n\n" +
-            "Piment | Citron | Sucre | Café"
-        );
+
+        if (selectedSample == SampleType.Algue)
+        {
+            ShowMessage("Analyse terminée.\n\nRésultat : VIRUS DÉTECTÉ.\nL'échantillon d'algue est contaminé.");
+        }
+        else if (selectedSample == SampleType.Sushi)
+        {
+            ShowMessage("Analyse terminée.\n\nRésultat : aucun virus détecté.\nEssayez un autre échantillon.");
+        }
+    }
+
+    public void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
